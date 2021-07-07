@@ -31,4 +31,4 @@ jobs:
       env:
         KUBE_CONFIG_DATA: ${{ env.KUBE_CONFIG_DATA }}
       with:
-        args: apply -k ${{DEPLOY_DIR}}
+        args: apply -k ${{ env.DEPLOY_DIR }}
