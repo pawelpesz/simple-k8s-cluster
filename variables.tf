@@ -34,10 +34,10 @@ variable "k8s_version" {
 
 variable "instance_type" {
     type = string
-    default = "t3.micro"
+    default = "t3.small"
 }
 
 variable "cluster_size" {
     type = number
-    default = 5
+    default = 3
 }

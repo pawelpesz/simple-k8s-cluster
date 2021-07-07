@@ -25,9 +25,9 @@ module "eks" {
 
     worker_groups = [
         {
-            name          = "${var.cluster_name}-workers"
-            instance_type = var.instance_type
-            asg_max_size  = var.cluster_size
+            name                 = "${var.cluster_name}-workers"
+            instance_type        = var.instance_type
+            asg_desired_capacity = var.cluster_size
         }
     ]
 
