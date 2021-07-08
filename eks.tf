@@ -13,7 +13,7 @@ module "eks" {
 
     manage_aws_auth = true
     map_users       = [
-        for user in var.map_users:
+        for user in var.admin_users:
             {
                 userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"
                 username = "${user}"

@@ -6,8 +6,7 @@ variable "aws_secret_access_key" {
     type = string
 }
 
-variable "map_users" {
-    description = "Additional IAM users to add to the aws-auth configmap (to system:masters)"
+variable "admin_users" {
     type = list(string)
 }
 
@@ -39,5 +38,5 @@ variable "instance_type" {
 
 variable "cluster_size" {
     type = number
-    default = 3
+    default = 1
 }
