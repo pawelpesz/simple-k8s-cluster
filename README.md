@@ -16,7 +16,7 @@ Amazon EKS cluster built with the [terraform-aws-eks](https://registry.terraform
 5. The Kubernetes config file is created as `kubeconfig_simple-k8s-cluster`.
 6. Verify installation with `kubectl --kubeconfig=kubeconfig_simple-k8s-cluster get nodes`.
 
-## III. Configuring GitHub action
+## III. Configuring and executing GitHub workflow
 1. Encode the K8s config file with `cat kubeconfig_simple-k8s-cluster | base64`.
 2. Configure the following GitHub secrets:
     * `KUBE_CONFIG_DATA` - use the output from III-1.
