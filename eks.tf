@@ -2,6 +2,7 @@ data "aws_caller_identity" "current" { }
 
 module "eks" {
     source = "terraform-aws-modules/eks/aws"
+    version = "~> 17.1"
 
     vpc_id          = module.vpc.vpc_id
     subnets         = module.vpc.private_subnets

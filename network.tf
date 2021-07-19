@@ -10,6 +10,7 @@ locals {
 
 module "vpc" {
     source = "terraform-aws-modules/vpc/aws"
+    version = "~> 3.2"
 
     name = "${var.cluster_name}-vpc"
     cidr = var.vpc_cidr
