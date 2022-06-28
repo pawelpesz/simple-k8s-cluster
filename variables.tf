@@ -1,11 +1,3 @@
-variable "aws_access_key_id" {
-  type = string
-}
-
-variable "aws_secret_access_key" {
-  type = string
-}
-
 variable "admin_users" {
   type = list(string)
 }
@@ -28,7 +20,7 @@ variable "cluster_name" {
 
 variable "k8s_version" {
   type    = string
-  default = "1.20"
+  default = "1.22"
 }
 
 variable "instance_type" {

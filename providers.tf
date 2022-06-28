@@ -1,7 +1,7 @@
 provider "aws" {
-  region     = var.region
-  access_key = var.aws_access_key_id
-  secret_key = var.aws_secret_access_key
+  region = var.region
+  #access_key from AWS_ACCESS_KEY_ID
+  #secret_key from AWS_SECRET_ACCESS_KEY
 }
 
 data "aws_eks_cluster_auth" "cluster" {
