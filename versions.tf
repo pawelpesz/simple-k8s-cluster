@@ -5,6 +5,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.20"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "~> 1.14"
+    }
   }
   cloud {
     # organization from TF_CLOUD_ORGANIZATION
