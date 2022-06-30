@@ -35,9 +35,13 @@ module "eks" {
 
   self_managed_node_groups = {
     workers = {
-      name                  = "${var.cluster_name}-workers"
-      instance_type         = var.instance_type
-      desired_size          = var.cluster_size
+      name          = "${var.cluster_name}-workers"
+      instance_type = var.instance_type
+      min_size      = var.cluster_size
+      max_size      = var.cluster_size
+      instance_refresh = {
+        strategy = "Rolling"
+      }
       create_security_group = false
     }
   }
