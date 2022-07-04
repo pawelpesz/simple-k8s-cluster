@@ -1,6 +1,11 @@
 # Simple Kubernetes cluster
 Amazon EKS cluster built with the [terraform-aws-eks](https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest) module. All _YAML_ spec files from the `deploy` directory are automatically applied to the cluster using Terraform Cloud's auto-apply feature.
 
+Some of the example manifests are sourced from:
+* https://github.com/kubernetes/website/tree/main/content/en/examples/application/nginx
+* https://github.com/kubernetes/dashboard/tree/master/aio/deploy
+* https://github.com/kubernetes/dashboard/tree/master/docs/user/access-control
+
 ## I. Prerequisites
 1. Terraform Cloud account (Free or better).
 2. IAM account for Terraform with `AmazonEC2FullAccess` and `AutoScalingFullAccess` policies attached. Additionally it should have the permissions defined in [`iam.json`](iam.json).
