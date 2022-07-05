@@ -3,6 +3,7 @@ data "kubectl_path_documents" "manifests" {
 }
 
 resource "kubectl_manifest" "manifest" {
-  for_each  = data.kubectl_path_documents.manifests.manifests
-  yaml_body = each.value
+  for_each   = data.kubectl_path_documents.manifests.manifests
+  yaml_body  = each.value
+  depends_on = [module.eks.cluster_addons]
 }
