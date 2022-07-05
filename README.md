@@ -5,6 +5,7 @@ Some of the example manifests are sourced from:
 * https://github.com/kubernetes/website/tree/main/content/en/examples/application/nginx
 * https://github.com/kubernetes/dashboard/tree/master/aio/deploy
 * https://github.com/kubernetes/dashboard/tree/master/docs/user/access-control
+* https://github.com/kubernetes-sigs/metrics-server
 
 ## I. Prerequisites
 1. Terraform Cloud account (Free or better).
