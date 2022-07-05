@@ -32,3 +32,13 @@ variable "cluster_size" {
   type    = number
   default = 1
 }
+
+variable "ingress_ports" {
+  type    = list(number)
+  default = [80, 443]
+}
+
+variable "cluster_ingress_ports" {
+  type    = list(number)
+  default = [4443, 8443]
+}

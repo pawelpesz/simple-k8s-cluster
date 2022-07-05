@@ -1,3 +1,26 @@
+locals {
+  ingress_ports = {
+    for port in var.ingress_ports : "ingress_${port}" => {
+      description = "Ingress to port ${port}"
+      protocol    = "tcp"
+      from_port   = port
+      to_port     = port
+      type        = "ingress"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+  cluster_ingress_ports = {
+    for port in var.cluster_ingress_ports : "cluster_ingress_${port}" => {
+      description                   = "Cluster API to port ${port}"
+      protocol                      = "tcp"
+      from_port                     = port
+      to_port                       = port
+      type                          = "ingress"
+      source_cluster_security_group = true
+    }
+  }
+}
+
 data "aws_caller_identity" "current" {}
 
 module "eks" {
@@ -47,23 +70,7 @@ module "eks" {
   }
 
   # Extend node-to-node security group rules
-  node_security_group_additional_rules = {
-    ingress_http = {
-      description = "HTTP ingress"
-      protocol    = "tcp"
-      from_port   = 80
-      to_port     = 80
-      type        = "ingress"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-    ingress_https = {
-      description = "HTTPS ingress"
-      protocol    = "tcp"
-      from_port   = 443
-      to_port     = 443
-      type        = "ingress"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
+  node_security_group_additional_rules = merge(local.ingress_ports, local.cluster_ingress_ports, {
     ingress_self_all = {
       description = "Node to node all ports/protocols"
       protocol    = "-1"
@@ -80,6 +87,6 @@ module "eks" {
       type        = "egress"
       cidr_blocks = ["0.0.0.0/0"]
     }
-  }
+  })
 
 }
