@@ -33,13 +33,12 @@ kubectl get nodes
 kubectl get all -A
 ```
 3. Connect to the Kubernetes Dashboard:
-    * Copy the authorization token retrieved by running:
-    ```
-    kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}') -o=jsonpath='{.data.token}'
-    ```
-    * Run K8s proxy:
-    ```
-    kubectl proxy
-    ```
-    * Connect to the dashboard, use the token to log in:
-    http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+* Copy the authorization token retrieved by running:
+```
+kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}') -o=jsonpath='{.data.token}'
+```
+* Run K8s proxy:
+```
+kubectl proxy
+```
+* Connect to the [dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/), use the token to log in.
