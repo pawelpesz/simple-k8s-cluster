@@ -51,7 +51,7 @@ module "eks" {
     for user in var.admin_users :
     {
       userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"
-      username = "${user}"
+      username = user
       groups   = ["system:masters"]
     }
   ]
