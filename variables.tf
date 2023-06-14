@@ -20,12 +20,12 @@ variable "cluster_name" {
 
 variable "k8s_version" {
   type    = string
-  default = "1.22"
+  default = "1.27"
 }
 
 variable "instance_type" {
   type    = string
-  default = "t3.small"
+  default = "t4g.small"
 }
 
 variable "cluster_size" {

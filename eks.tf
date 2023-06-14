@@ -19,13 +19,20 @@ locals {
       source_cluster_security_group = true
     }
   }
+  admin_users = [
+    for user in var.admin_users : {
+      username = user
+      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"
+      groups   = ["system:masters"]
+    }
+  ]
 }
 
 data "aws_caller_identity" "current" {}
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "18.26.2"
+  version = "~> 19.15"
 
   vpc_id                          = module.vpc.vpc_id
   subnet_ids                      = module.vpc.private_subnets
@@ -35,26 +42,29 @@ module "eks" {
 
   cluster_addons = {
     coredns = {
-      resolve_conflicts = "OVERWRITE"
+      most_recent = true
     }
     kube-proxy = {
-      resolve_conflicts = "OVERWRITE"
+      most_recent = true
     }
     vpc-cni = {
-      resolve_conflicts = "OVERWRITE"
+      most_recent = true
     }
   }
 
   create_aws_auth_configmap = true
   manage_aws_auth_configmap = true
-  aws_auth_users = [
-    for user in var.admin_users :
-    {
-      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"
-      username = user
-      groups   = ["system:masters"]
+
+  aws_auth_users         = local.admin_users
+  kms_key_administrators = [for user in local.admin_users : user.userarn]
+
+  self_managed_node_group_defaults = {
+    # enable discovery of autoscaling groups by cluster-autoscaler
+    autoscaling_group_tags = {
+      "k8s.io/cluster-autoscaler/enabled" : true,
+      "k8s.io/cluster-autoscaler/${var.cluster_name}" : "owned",
     }
-  ]
+  }
 
   self_managed_node_groups = {
     workers = {
