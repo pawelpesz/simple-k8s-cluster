@@ -66,14 +66,6 @@ module "eks" {
     [for user in local.admin_users : user.userarn]
   )
 
-  self_managed_node_group_defaults = {
-    # enable discovery of autoscaling groups by cluster-autoscaler
-    autoscaling_group_tags = {
-      "k8s.io/cluster-autoscaler/enabled" : true,
-      "k8s.io/cluster-autoscaler/${var.cluster_name}" : "owned",
-    }
-  }
-
   self_managed_node_groups = {
     workers = {
       name          = "${var.cluster_name}-workers"

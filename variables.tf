@@ -25,7 +25,7 @@ variable "k8s_version" {
 
 variable "instance_type" {
   type    = string
-  default = "t3a.small"
+  default = "t3.small"
 }
 
 variable "cluster_size" {
@@ -40,5 +40,5 @@ variable "ingress_ports" {
 
 variable "cluster_ingress_ports" {
   type    = list(number)
-  default = [4443, 8443]
+  default = []
 }
