@@ -25,7 +25,7 @@ variable "k8s_version" {
 
 variable "instance_type" {
   type    = string
-  default = "t4g.small"
+  default = "t3a.small"
 }
 
 variable "cluster_size" {

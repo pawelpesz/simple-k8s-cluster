@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
+  name = module.eks.cluster_name
 }
 
 # See: https://github.com/terraform-aws-modules/terraform-aws-eks/issues/1280#issuecomment-804499461
