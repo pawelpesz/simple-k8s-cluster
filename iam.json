@@ -3,12 +3,8 @@
     "Statement": [
         {
             "Effect": "Allow",
-            "Action": "eks:*",
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
             "Action": [
+                "eks:*",
                 "iam:AddRoleToInstanceProfile",
                 "iam:AttachRolePolicy",
                 "iam:CreateInstanceProfile",
@@ -36,7 +32,20 @@
                 "iam:TagOpenIDConnectProvider",
                 "iam:TagRole",
                 "iam:UntagRole",
-                "iam:UpdateAssumeRolePolicy"
+                "iam:UpdateAssumeRolePolicy",
+                "kms:CreateKey",
+                "kms:DescribeKey",
+                "kms:DisableKey",
+                "kms:DisableKeyRotation",
+                "kms:EnableKey",
+                "kms:EnableKeyRotation",
+                "kms:ListAliases",
+                "kms:ListKeys",
+                "kms:PutKeyPolicy",
+                "kms:ScheduleKeyDeletion",
+                "kms:TagResource",
+                "kms:UntagResource",
+                "kms:UpdateKeyDescription"
             ],
             "Resource": "*"
         },
@@ -73,6 +82,15 @@
             "Effect": "Allow",
             "Action": "logs:*",
             "Resource": "arn:aws:logs:*:*:log-group:/aws/eks/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:CreateAlias",
+                "kms:DeleteAlias",
+                "kms:UpdateAlias"
+            ],
+            "Resource": "arn:aws:kms:*:*:alias/eks/*"
         }
     ]
 }

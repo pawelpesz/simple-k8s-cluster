@@ -1,3 +1,10 @@
+data "aws_caller_identity" "current" {}
+
+# See: https://github.com/terraform-aws-modules/terraform-aws-eks/blob/0a17f655fb7da00640627ed9255f1d96e42fcfd7/main.tf#LL4C1-L10C2
+data "aws_iam_session_context" "current" {
+  arn = data.aws_caller_identity.current.arn
+}
+
 locals {
   ingress_ports = {
     for port in var.ingress_ports : "ingress_${port}" => {
@@ -28,8 +35,6 @@ locals {
   ]
 }
 
-data "aws_caller_identity" "current" {}
-
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.15"
@@ -55,8 +60,11 @@ module "eks" {
   create_aws_auth_configmap = true
   manage_aws_auth_configmap = true
 
-  aws_auth_users         = local.admin_users
-  kms_key_administrators = [for user in local.admin_users : user.userarn]
+  aws_auth_users = local.admin_users
+  kms_key_administrators = concat(
+    [data.aws_iam_session_context.current.issuer_arn],
+    [for user in local.admin_users : user.userarn]
+  )
 
   self_managed_node_group_defaults = {
     # enable discovery of autoscaling groups by cluster-autoscaler
