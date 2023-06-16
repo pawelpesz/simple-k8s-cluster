@@ -39,11 +39,8 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.15"
 
-  # Public subnets are included here so that the cluster doesn't lose connectivity prematurely on destroy
-  # In general, it is not recommended. https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = concat(module.vpc.private_subnets, module.vpc.public_subnets)
-
+  vpc_id                          = module.vpc.vpc_id
+  subnet_ids                      = module.vpc.private_subnets
   cluster_name                    = var.cluster_name
   cluster_version                 = var.k8s_version
   cluster_endpoint_private_access = true
